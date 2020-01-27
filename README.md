@@ -30,7 +30,7 @@ Web Client:\
   Apache Tomcat 6.0.20\
   JSP\
   Apache Struts 3.0.2\
-  DisplayTag 1.6\
+  DisplayTag 1.6
 
 ## 23.01.2020
 Stworzyłem Parent Poma, Dodałem mavena do projektu ServerApplication,\
