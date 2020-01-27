@@ -31,5 +31,3 @@ Web Client:
   JSP
   Apache Struts 3.0.2
   DisplayTag 1.6
-
-
