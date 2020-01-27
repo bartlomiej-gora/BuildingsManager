@@ -8,7 +8,7 @@ Temat Pracy:\
 System obiegu dokumentów w rozproszonej architekturze\
 trójwarstwowej z wykorzystaniem technologii Java 2 Enterprise\
 Edition\
-__Data: 2012\__
+**Data: 2012\**
 \
 Technologie:\
 Backend:\
