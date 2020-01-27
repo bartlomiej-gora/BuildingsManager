@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="bms">
+		<jta-data-source>java:/bms_ds</jta-data-source>
+		<jar-file>../ServerApplication.jar</jar-file>
+		<class>com.github.bgora.beans.entity.Attachement</class>
+		<class>com.github.bgora.beans.entity.Building</class>
+		<class>com.github.bgora.beans.entity.Document</class>
+		<class>com.github.bgora.beans.entity.Flat</class>
+		<class>com.github.bgora.beans.entity.Message</class>
+		<class>com.github.bgora.beans.entity.News</class>
+		<class>com.github.bgora.beans.entity.Person</class>
+		<class>com.github.bgora.beans.entity.Pricing</class>
+		<class>com.github.bgora.beans.entity.Rent</class>
+		<class>com.github.bgora.beans.entity.Role</class>
+		<class>com.github.bgora.beans.entity.User</class>
+		<class>com.github.bgora.beans.entity.MainProcess</class>
+		<class>com.github.bgora.beans.entity.ProcessPathElement</class>
+		<class>com.github.bgora.beans.entity.ProposalData</class>
+		<class>com.github.bgora.beans.entity.BMSGroup</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="cache.provider_class" value="org.jboss.ejb3.entity.TreeCacheProviderHook"/>
+			<property name="treecache.mbean.object_name" value="jboss.cache:service=EJB3EntityTreeCache"/>
+			<property name="cache.provider_class" value="org.jboss.ejb3.entity.TreeCacheProviderHook"/>
+			<property name="treecache.mbean.object_name" value="jboss.cache:service=EJB3EntityTreeCache"/>
+		</properties>
+	</persistence-unit>
+
+
+</persistence>

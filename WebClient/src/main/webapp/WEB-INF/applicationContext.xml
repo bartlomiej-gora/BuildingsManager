@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- Globalny Zbiór ustawień dla session beanów -->
+	<util:properties id="connection_props">
+		<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+		<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>
+		<prop key="java.naming.provider.url">"jnp://192.168.0.101:1100 jnp://192.168.0.103:1100"</prop>
+	</util:properties>
+	<!--  -->
+
+
+	<!-- Bean bezstanowe  -->
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.PersonBeanRemote"
+		jndi-name="PersonBean/remote" id="personBean" environment-ref="connection_props">
+	</jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.NewsBeanRemote"
+		jndi-name="NewsBean/remote" environment-ref="connection_props" id="newsBean"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.UserBeanRemote"
+		jndi-name="UserBean/remote" id="userBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.RoleBeanRemote"
+		jndi-name="RoleBean/remote" id="roleBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.AttachementBeanRemote"
+		jndi-name="AttachementBean/remote" id="attachementBean"
+		environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.BuildingBeanRemote"
+		jndi-name="BuildingBean/remote" id="buildingBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.DocumentBeanRemote"
+		jndi-name="DocumentBean/remote" id="documentBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.FlatBeanRemote"
+		jndi-name="FlatBean/remote" id="flatBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.MessageBeanRemote"
+		jndi-name="MessageBean/remote" id="messageBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.PricingBeanRemote"
+		jndi-name="PricingBean/remote" id="pricingBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.RentBeanRemote"
+		jndi-name="RentBean/remote" id="rentBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.CityBeanRemote"
+		jndi-name="CityBean/remote" id="cityBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.GroupBeanRemote"
+		jndi-name="GroupBean/remote" id="groupBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.ProcessBeanRemote"
+		jndi-name="ProcessBean/remote" id="processBean" environment-ref="connection_props"></jee:remote-slsb>
+
+	<jee:remote-slsb business-interface="com.github.bgora.beans.session.remote.ProposalDataBeanRemote"
+		jndi-name="ProposalDataBean/remote" id="proposalDataBean"
+		environment-ref="connection_props"></jee:remote-slsb>
+
+
+	<!--  -->
+
+	<!--Stanowe beany!  -->
+	<bean id="buildingEditorBean" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiEnvironment" ref="connection_props"></property>
+		<property name="jndiName" value="BuildingEditorBean/remote"></property>
+	</bean>
+	<bean id="userEditorBean" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiEnvironment" ref="connection_props"></property>
+		<property name="jndiName" value="UserEditorBean/remote"></property>
+	</bean>
+	<bean id="personEditorBean" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiEnvironment" ref="connection_props"></property>
+		<property name="jndiName" value="PersonEditorBean/remote"></property>
+	</bean>
+	<bean id="processCreatorBean" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiEnvironment" ref="connection_props"></property>
+		<property name="jndiName" value="ProccessCreatorBean/remote"></property>
+	</bean>
+	<!--  -->
+
+
+	<!-- Beany dla akcji struts -->
+
+	<bean name="/welcome" class="pl.bgora.actions.WelcomeAction">
+		<property name="newsBean">
+			<ref local="newsBean" />
+		</property>
+	</bean>
+
+	<bean name="/login" class="pl.bgora.actions.LoginAction"
+		init-method="initData">
+		<property name="userBean">
+			<ref local="userBean" />
+		</property>
+	</bean>
+
+	<bean name="/myProfile" class="pl.bgora.actions.MyProfileAction">
+		<property name="userBean">
+			<ref local="userBean" />
+		</property>
+	</bean>
+
+	<bean name="/usersAdmin" class="pl.bgora.actions.UserAdminAction">
+		<property name="userBean">
+			<ref local="userBean" />
+		</property>
+	</bean>
+
+	<bean name="/editUser" class="pl.bgora.actions.EditUserAction">
+		<property name="userBean">
+			<ref local="userBean" />
+		</property>
+		<property name="roleBean">
+			<ref local="roleBean" />
+		</property>
+		<property name="personBean">
+			<ref local="personBean" />
+		</property>
+		<property name="userEditor">
+			<ref local="userEditorBean" />
+		</property>
+		<property name="groupBean">
+			<ref local="groupBean" />
+		</property>
+	</bean>
+
+	<bean name="/listPersons" class="pl.bgora.actions.ListPersonAction">
+		<property name="personService">
+			<ref local="personBean" />
+		</property>
+	</bean>
+
+	<bean name="/buildingAdmin" class="pl.bgora.actions.BuildingAdminAction">
+		<property name="buildingService">
+			<ref local="buildingBean" />
+		</property>
+	</bean>
+
+	<bean name="/editBuilding" class="pl.bgora.actions.EditBuildingAction">
+		<property name="buildingService">
+			<ref local="buildingBean" />
+		</property>
+		<property name="cityService">
+			<ref local="cityBean" />
+		</property>
+		<property name="buildingEditor">
+			<ref local="buildingEditorBean" />
+		</property>
+		<property name="flatService">
+			<ref local="flatBean" />
+		</property>
+		<property name="pricingService">
+			<ref local="pricingBean" />
+		</property>
+	</bean>
+
+	<bean name="/cityEdit" class="pl.bgora.actions.CityEditAction">
+		<property name="cityService">
+			<ref local="cityBean" />
+		</property>
+	</bean>
+
+	<bean name="/editFlat" class="pl.bgora.actions.EditFlatAction">
+		<property name="flatService">
+			<ref local="flatBean" />
+		</property>
+	</bean>
+
+	<bean name="/personsAdmin" class="pl.bgora.actions.PersonAdminAction">
+		<property name="personService">
+			<ref local="personBean" />
+		</property>
+	</bean>
+
+	<bean name="/personEdit" class="pl.bgora.actions.PersonEditAction">
+		<property name="personService">
+			<ref local="personBean" />
+		</property>
+		<property name="personEditorService">
+			<ref local="personEditorBean" />
+		</property>
+	</bean>
+
+	<bean name="/listBuildings" class="pl.bgora.actions.ListBuildingAction">
+		<property name="buildingService">
+			<ref local="buildingBean" />
+		</property>
+	</bean>
+
+	<bean name="/listFlats" class="pl.bgora.actions.ListFlatAction">
+		<property name="flatService">
+			<ref local="flatBean" />
+		</property>
+	</bean>
+
+	<bean name="/removeUser" class="pl.bgora.actions.RemoveUserAction">
+		<property name="userService">
+			<ref local="userBean" />
+		</property>
+	</bean>
+
+	<bean name="/removeBuilding" class="pl.bgora.actions.RemoveBuildingAction">
+		<property name="buildingService">
+			<ref local="buildingBean" />
+		</property>
+		<property name="flatService">
+			<ref local="flatBean" />
+		</property>
+	</bean>
+
+	<bean name="/removeFlat" class="pl.bgora.actions.RemoveFlatAction">
+		<property name="flatService">
+			<ref local="flatBean" />
+		</property>
+		<property name="buildingService">
+			<ref local="buildingBean" />
+		</property>
+	</bean>
+
+	<bean name="/removePerson" class="pl.bgora.actions.RemovePersonAction">
+		<property name="personService">
+			<ref local="personBean" />
+		</property>
+	</bean>
+
+	<bean name="/addNews" class="pl.bgora.actions.AddNewsAction">
+		<property name="newsService">
+			<ref local="newsBean" />
+		</property>
+	</bean>
+
+	<bean name="/inbox" class="pl.bgora.actions.InboxAction">
+		<property name="messageService">
+			<ref local="messageBean" />
+		</property>
+	</bean>
+
+	<bean name="/sentbox" class="pl.bgora.actions.SentBoxAction">
+		<property name="messageService">
+			<ref local="messageBean" />
+		</property>
+	</bean>
+
+	<bean name="/showEmail" class="pl.bgora.actions.ShowEmailAction">
+		<property name="messageService">
+			<ref local="messageBean" />
+		</property>
+	</bean>
+
+	<bean name="/createEmail" class="pl.bgora.actions.CreateEmailAction">
+		<property name="messageService">
+			<ref local="messageBean" />
+		</property>
+		<property name="userService">
+			<ref local="userBean" />
+		</property>
+	</bean>
+
+	<bean name="/getAttachement" class="pl.bgora.actions.GetAttachementAction">
+		<property name="messageService">
+			<ref local="messageBean" />
+		</property>
+	</bean>
+
+	<bean name="/requestbox" class="pl.bgora.actions.RequestBoxAction">
+		<property name="processBean">
+			<ref local="processBean" />
+		</property>
+	</bean>
+
+	<bean name="/addRequest" class="pl.bgora.actions.AddRequestAction">
+		<property name="creatorService">
+			<ref local="processCreatorBean" />
+		</property>
+		<property name="proccessBean">
+			<ref local="processBean" />
+		</property>
+	</bean>
+
+	<bean name="/submitRequest" class="pl.bgora.actions.SubmitRequestAction"></bean>
+
+	<bean name="/viewRequest" class="pl.bgora.actions.ViewRequestAction">
+		<property name="processService">
+			<ref local="processBean" />
+		</property>
+		<property name="proposalDataBean">
+			<ref local="proposalDataBean" />
+		</property>
+	</bean>
+
+</beans>

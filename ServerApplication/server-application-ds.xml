@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  JBoss Server Configuration                                           -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- See http://www.jboss.org/community/wiki/Multiple1PC for information about local-tx-datasource -->
+<!-- $Id: postgres-ds.xml 88948 2009-05-15 14:09:08Z jesper.pedersen $ -->
+<!-- ==================================================================== -->
+<!--  Datasource config for Postgres                                      -->
+<!-- ==================================================================== -->
+
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>bms_ds</jndi-name>
+    <connection-url>jdbc:postgresql://localhost:5432/BMSDB</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <user-name>bmsuser</user-name>
+    <password>bmspasswd</password>
+      <metadata>
+         <type-mapping>PostgreSQL 8.0</type-mapping>
+      </metadata>
+  </local-tx-datasource>
+
+</datasources>

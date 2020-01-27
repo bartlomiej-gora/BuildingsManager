@@ -1,0 +1,146 @@
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration//EN"
+  "http://jakarta.apache.org/struts/dtds/tiles-config.dtd">
+
+	<!--
+		Licensed to the Apache Software Foundation (ASF) under one or more
+		contributor license agreements. See the NOTICE file distributed with
+		this work for additional information regarding copyright ownership.
+		The ASF licenses this file to You under the Apache License, Version
+		2.0 (the "License"); you may not use this file except in compliance
+		with the License. You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+	-->
+
+
+<tiles-definitions>
+
+
+	<!-- Main Layout -->
+	<definition name="index" page="/WEB-INF/tiles/layout.jsp">
+		<put name="header">../../pages/header.jsp</put>
+		<put name="sidebar">../../pages/sidebar.jsp</put>
+		<put name="body">../../pages/news.jsp</put>
+	</definition>
+
+	<definition name="contact.page" extends="index">
+		<put name="body">../../pages/contact.jsp</put>
+	</definition>
+
+	<definition name="about.page" extends="index">
+		<put name="body">../../pages/about.jsp</put>
+	</definition>
+
+	<definition name="documents.page" extends="index">
+		<put name="body">../../pages/documents.jsp</put>
+	</definition>
+
+	<definition name="myaccount.page" extends="index">
+		<put name="body">../../pages/login.jsp</put>
+	</definition>
+
+	<definition name="my.profile.page" extends="index">
+		<put name="body">../../pages/myProfile.jsp</put>
+	</definition>
+
+	<definition name="page.user.admin" extends="index">
+		<put name="body">../../pages/usersAdmin.jsp</put>
+	</definition>
+
+	<definition name="page.user.add" extends="index">
+		<put name="body">../../pages/editUser.jsp</put>
+	</definition>
+
+	<definition name="page.building.admin" extends="index">
+		<put name="body">../../pages/buildingAdmin.jsp</put>
+	</definition>
+
+	<definition name="page.edit.building" extends="index">
+		<put name="body">../../pages/editBuilding.jsp</put>
+	</definition>
+
+	<definition name="page.edit.city" extends="index">
+		<put name="body">../../pages/cityEdit.jsp</put>
+	</definition>
+
+	<definition name="page.list.flats" extends="index">
+		<put name="body">../../pages/flatAdmin.jsp</put>
+	</definition>
+
+	<definition name="page.edit.flat" extends="index">
+		<put name="body">../../pages/editFlat.jsp</put>
+	</definition>
+
+	<definition name="page.person.admin" extends="index">
+		<put name="body">../../pages/personAdmin.jsp</put>
+	</definition>
+
+	<definition name="page.person.edit" extends="index">
+		<put name="body">../../pages/editPerson.jsp</put>
+	</definition>
+
+	<definition name="page.persons.list" extends="index">
+		<put name="body">../../pages/listPerson.jsp</put>
+	</definition>
+
+	<definition name="page.select.flats" extends="index">
+		<put name="body">../../pages/listFlats.jsp</put>
+	</definition>
+
+	<definition name="page.user.remove" extends="index">
+		<put name="body">../../pages/removeUser.jsp</put>
+	</definition>
+
+	<definition name="page.remove.building" extends="index">
+		<put name="body">../../pages/removeBuilding.jsp</put>
+	</definition>
+	<definition name="page.remove.flat" extends="index">
+		<put name="body">../../pages/removeFlat.jsp</put>
+	</definition>
+
+	<definition name="page.remove.person" extends="index">
+		<put name="body">../../pages/removePerson.jsp</put>
+	</definition>
+
+	<definition name="page.add.news" extends="index">
+		<put name="body">../../pages/addNews.jsp</put>
+	</definition>
+
+	<definition name="page.inbox" extends="index">
+		<put name="body">../../pages/inbox.jsp</put>
+	</definition>
+
+	<definition name="page.show.mail" extends="index">
+		<put name="body">../../pages/showEmail.jsp</put>
+	</definition>
+
+	<definition name="page.sentbox" extends="index">
+		<put name="body">../../pages/sentbox.jsp</put>
+	</definition>
+
+	<definition name="page.create.email" extends="index">
+		<put name="body">../../pages/createEmail.jsp</put>
+	</definition>
+
+	<definition name="page.request.box" extends="index">
+		<put name="body">../../pages/requestBox.jsp</put>
+	</definition>
+
+	<definition name="page.add.request" extends="index">
+		<put name="body">../../pages/addRequest.jsp</put>
+	</definition>
+
+	<definition name="page.request.view" extends="index">
+		<put name="body">../../pages/viewRequest.jsp</put>
+	</definition>
+	
+	<definition name="page.submit.request" extends="index">
+	<put name="body">../../pages/submitRequest.jsp</put>
+	</definition>
+</tiles-definitions>

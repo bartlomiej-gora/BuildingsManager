@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+	<!--
+		Licensed to the Apache Software Foundation (ASF) under one or more
+		contributor license agreements. See the NOTICE file distributed with
+		this work for additional information regarding copyright ownership.
+		The ASF licenses this file to You under the Apache License, Version
+		2.0 (the "License"); you may not use this file except in compliance
+		with the License. You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+	-->
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+	<!--
+		This is a blank Struts configuration file with an example welcome
+		action/page and other commented sample elements. Struts Validator is
+		configured using the factory defaults and is ready-to-use. NOTE: If
+		you have a generator tool to create the corresponding Java classes for
+		you, you could include the details in the "form-bean" declarations.
+		Otherwise, you would only define the "form-bean" element itself, with
+		the corresponding "name" and "type" attributes, as shown here.
+	-->
+
+
+<struts-config>
+
+
+	<!--
+		================================================ Form Bean Definitions
+	-->
+
+	<form-beans>
+		<form-bean name="welcomeForm" type="pl.bgora.forms.WelcomeForm"></form-bean>
+		<form-bean name="loginForm" type="pl.bgora.forms.LoginForm"></form-bean>
+		<form-bean name="documentsForm" type="pl.bgora.forms.DocumentsForm"></form-bean>
+		<form-bean name="profileForm" type="pl.bgora.forms.MyProfileForm"></form-bean>
+		<form-bean name="usersAdminForm" type="pl.bgora.forms.UserAdminForm"></form-bean>
+		<form-bean name="editUserForm" type="pl.bgora.forms.EditUserForm"></form-bean>
+		<form-bean name="buildingAdminForm" type="pl.bgora.forms.BuildingAdminForm"></form-bean>
+		<form-bean name="editBuildingForm" type="pl.bgora.forms.EditBuildingForm"></form-bean>
+		<form-bean name="cityEditForm" type="pl.bgora.forms.CityEditForm"></form-bean>
+		<form-bean name="editFlatForm" type="pl.bgora.forms.EditFlatForm"></form-bean>
+		<form-bean name="flatsAdminForm" type="pl.bgora.forms.FlatAdminForm"></form-bean>
+		<form-bean name="personAdminForm" type="pl.bgora.forms.PersonAdminForm"></form-bean>
+		<form-bean name="personEditForm" type="pl.bgora.forms.PersonEditForm"></form-bean>
+		<form-bean name="listPersonsForm" type="pl.bgora.forms.ListPersonForm"></form-bean>
+		<form-bean name="listBuildingsForm" type="pl.bgora.forms.ListBuildingForm"></form-bean>
+		<form-bean name="listFlatsForm" type="pl.bgora.forms.ListFlatForm"></form-bean>
+		<form-bean name="removeUserForm" type="pl.bgora.forms.RemoveUserForm"></form-bean>
+		<form-bean name="removeBuildingForm" type="pl.bgora.forms.RemoveBuildingForm"></form-bean>
+		<form-bean name="removeFlatForm" type="pl.bgora.forms.RemoveFlatForm"></form-bean>
+		<form-bean name="addNewsForm" type="pl.bgora.forms.AddNewsForm"></form-bean>
+		<form-bean name="inboxForm" type="pl.bgora.forms.InboxForm"></form-bean>
+		<form-bean name="sentBoxForm" type="pl.bgora.forms.SentBoxForm"></form-bean>
+		<form-bean name="showEmailForm" type="pl.bgora.forms.ShowEmailForm"></form-bean>
+		<form-bean name="createEmailForm" type="pl.bgora.forms.CreateEmailForm"></form-bean>
+		<form-bean name="requestBoxForm" type="pl.bgora.forms.RequestBoxForm"></form-bean>
+		<form-bean name="addRequestForm" type="pl.bgora.forms.AddRequestForm"></form-bean>
+		<form-bean name="viewRequestForm" type="pl.bgora.forms.ViewRequestForm"></form-bean>
+
+
+		<!--
+			sample form bean descriptor for an ActionForm <form-bean
+			name="inputForm" type="app.InputForm"/> end sample
+		-->
+
+		<!--
+			sample form bean descriptor for a DynaActionForm <form-bean
+			name="logonForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="username" type="java.lang.String"/>
+			<form-property name="password" type="java.lang.String"/> </form-bean>
+			end sample
+		-->
+	</form-beans>
+
+
+	<!--
+		========================================= Global Exception Definitions
+	-->
+
+	<global-exceptions>
+		<!--
+			sample exception handler <exception key="expired.password"
+			type="app.ExpiredPasswordException" path="/changePassword.jsp"/> end
+			sample
+		-->
+	</global-exceptions>
+
+
+	<!--
+		=========================================== Global Forward Definitions
+	-->
+
+	<global-forwards>
+		<!-- Default forward to "Welcome" action -->
+		<!-- Demonstrates using index.jsp to forward -->
+		<forward name="welcome" path="/welcome.do"></forward>
+	</global-forwards>
+
+
+	<!--
+		=========================================== Action Mapping Definitions
+	-->
+
+	<action-mappings>
+		<!-- Default "Welcome" action -->
+		<!-- Forwards to Welcome.jsp -->
+		<action path="/welcome" name="welcomeForm"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="request">
+			<forward name="success" path="index"></forward>
+			<forward name="contact" path="contact.page"></forward>
+			<forward name="about" path="about.page"></forward>
+			<forward name="documents" path="documents.page"></forward>
+			<forward name="myaccount" path="myaccount.page"></forward>
+			<forward name="myaccount_logged" path="/myProfile.do"></forward>
+		</action>
+
+		<action path="/login" name="loginForm"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="request"
+			input="myaccount.page" validate="true">
+			<forward name="success" path="/welcome.do"></forward>
+			<forward name="failed" path="myaccount.page"></forward>
+		</action>
+
+		<action path="/documents" name="documentsForm"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="request">
+			<forward name="success" path="documents.page"></forward>
+		</action>
+
+		<action path="/logout" type="pl.bgora.actions.LogoutAction"
+			scope="request">
+			<forward name="success" path="/welcome.do"></forward>
+		</action>
+
+		<action path="/myProfile"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="session"
+			name="profileForm" input="my.profile.page" validate="true">
+			<forward name="success" path="my.profile.page"></forward>
+		</action>
+
+		<action path="/usersAdmin"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="usersAdminForm"
+			scope="request">
+			<forward name="success" path="page.user.admin"></forward>
+		</action>
+
+		<action path="/editUser"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="editUserForm"
+			scope="session">
+			<forward name="success" path="page.user.add"></forward>
+			<forward name="back" path="/usersAdmin.do"></forward>
+			<forward name="show_persons" path="/listPersons.do"></forward>
+			<forward name="failed" path="page.user.add"></forward>
+		</action>
+
+		<action path="/removeUser"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="session"
+			name="removeUserForm">
+			<forward name="success" path="page.user.remove"></forward>
+			<forward name="back" path="/usersAdmin.do"></forward>
+		</action>
+
+		<action path="/listPersons"
+			type="org.springframework.web.struts.DelegatingActionProxy" scope="request"
+			name="listPersonsForm">
+			<forward name="success" path="page.persons.list"></forward>
+			<forward name="back" path="/editUser.do"></forward>
+		</action>
+
+
+
+		<action path="/buildingAdmin"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="buildingAdminForm"
+			scope="request" validate="false">
+			<forward name="success" path="page.building.admin"></forward>
+		</action>
+
+		<action path="/editBuilding"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="editBuildingForm"
+			scope="session">
+			<forward name="success" path="page.edit.building"></forward>
+			<forward name="show_flats" path="/flatsAdmin.do"></forward>
+			<forward name="buildingAdmin" path="/buildingAdmin.do"></forward>
+		</action>
+
+		<action path="/removeBuilding"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="removeBuildingForm"
+			scope="session">
+			<forward name="success" path="page.remove.building"></forward>
+			<forward name="back" path="/buildingAdmin.do"></forward>
+		</action>
+
+		<action path="/cityEdit"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="cityEditForm"
+			scope="request">
+			<forward name="success" path="page.edit.city"></forward>
+		</action>
+
+		<action path="/flatsAdmin" type="pl.bgora.actions.FlatAdminAction"
+			name="flatsAdminForm" scope="session">
+			<forward name="success" path="page.list.flats"></forward>
+			<forward name="back" path="/editBuilding.do"></forward>
+		</action>
+
+
+		<action path="/editFlat"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="editFlatForm"
+			scope="session">
+			<forward name="success" path="page.edit.flat"></forward>
+			<forward name="back" path="/flatsAdmin.do"></forward>
+		</action>
+
+		<action path="/removeFlat"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="removeFlatForm"
+			scope="session">
+			<forward name="success" path="page.remove.flat"></forward>
+			<forward name="back" path="/flatsAdmin.do"></forward>
+		</action>
+
+		<action path="/personsAdmin"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="personAdminForm"
+			scope="request">
+			<forward name="success" path="page.person.admin"></forward>
+		</action>
+
+		<action path="/personEdit"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="personEditForm"
+			scope="session">
+			<forward name="success" path="page.person.edit"></forward>
+			<forward name="back" path="/personsAdmin.do"></forward>
+			<forward name="find_address" path="/listFlats.do"></forward>
+		</action>
+
+		<action path="/removePerson"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="removePersonForm"
+			scope="session">
+			<forward name="success" path="page.remove.person"></forward>
+			<forward name="back" path="/personsAdmin.do"></forward>
+		</action>
+
+
+		<action path="/listFlats"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="listFlatsForm"
+			scope="request">
+			<forward name="success" path="page.select.flats"></forward>
+			<forward name="back" path="/personEdit.do"></forward>
+		</action>
+
+		<action path="/addNews"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="addNewsForm"
+			scope="session">
+			<forward name="success" path="page.add.news"></forward>
+			<forward name="back" path="/welcome.do"></forward>
+		</action>
+
+		<action path="/inbox"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="inboxForm"
+			scope="session">
+			<forward name="success" path="page.inbox"></forward>
+		</action>
+
+		<action path="/sentbox"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="sentBoxForm"
+			scope="session">
+			<forward name="success" path="page.sentbox"></forward>
+		</action>
+
+		<action path="/showEmail"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="showEmailForm"
+			scope="session">
+			<forward name="success" path="page.show.mail"></forward>
+			<forward name="back" path="/sentbox.do"></forward>
+		</action>
+
+		<action path="/createEmail"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="createEmailForm"
+			scope="session">
+			<forward name="success" path="page.create.email"></forward>
+			<forward name="back" path="/inbox.do"></forward>
+		</action>
+
+		<action path="/getAttachement"
+			type="org.springframework.web.struts.DelegatingActionProxy">
+		</action>
+
+		<action path="/requestbox"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="requestBoxForm"
+			scope="session">
+			<forward name="success" path="page.request.box"></forward>
+		</action>
+
+		<action path="/addRequest"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="addRequestForm"
+			scope="session">
+			<forward name="success" path="page.add.request"></forward>
+			<forward name="back" path="/requestbox.do"></forward>
+			<forward name="submit" path="/submitRequest.do"></forward>
+		</action>
+
+		<action path="/submitRequest"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="addRequestForm"
+			scope="session">
+			<forward name="success" path="page.submit.request"></forward>
+			<forward name="cancel" path="/requestbox.do"></forward>
+			<forward name="back" path="/addRequest.do"></forward>
+			<forward name="submit" path="/requestbox.do"></forward>
+		</action>
+
+		<action path="/viewRequest"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="viewRequestForm"
+			scope="session">
+			<forward name="success" path="page.request.view"></forward>
+			<forward name="back" path="/requestbox.do"></forward>
+
+		</action>
+		<!--
+			sample input and input submit actions <action path="/Input"
+			type="org.apache.struts.actions.ForwardAction"
+			parameter="/pages/Input.jsp"/> <action path="/InputSubmit"
+			type="app.InputAction" name="inputForm" scope="request"
+			validate="true" input="/pages/Input.jsp"/> <action path="/edit*"
+			type="app.Edit{1}Action" name="inputForm" scope="request"
+			validate="true" input="/pages/Edit{1}.jsp"/> end samples
+		-->
+	</action-mappings>
+
+
+	<!--
+		======================================== Message Resources Definitions
+	-->
+
+	<message-resources parameter="MessageResources" null="false" />
+
+
+	<!--
+		=============================================== Plug Ins Configuration
+	-->
+
+	<!--
+		======================================================= Tiles plugin
+	-->
+	<!--
+		This plugin initialize Tiles definition factory. This later can takes
+		some parameters explained here after. The plugin first read parameters
+		from web.xml, thenoverload them with parameters defined here. All
+		parameters are optional. The plugin should be declared in each
+		struts-config file. - definitions-config: (optional) Specify
+		configuration file names. There can be several comma separated file
+		names (default: ?? ) - moduleAware: (optional - struts1.1) Specify if
+		the Tiles definition factory is module aware. If true (default), there
+		will be one factory for each Struts module. If false, there will be
+		one common factory for all module. In this later case, it is still
+		needed to declare one plugin per module. The factory will be
+		initialized with parameters found in the first initialized plugin
+		(generally the one associated with the default module). true : One
+		factory per module. (default) false : one single shared factory for
+		all modules - definitions-parser-validate: (optional) Specify if xml
+		parser should validate the Tiles configuration file. true : validate.
+		DTD should be specified in file header (default) false : no validation
+
+		Paths found in Tiles definitions are relative to the main context. To
+		use this plugin, download and add the Tiles jar to your WEB-INF/lib
+		directory then uncomment the plugin definition below. <plug-in
+		className="org.apache.struts.tiles.TilesPlugin" > <set-property
+		property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<set-property property="moduleAware" value="true" /> </plug-in>
+	-->
+
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+
+
+
+	<!--
+		=================================================== Validator plugin
+	-->
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+
+	</plug-in>
+
+
+	<!-- Spring IoC plugin  -->
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation" value="/WEB-INF/applicationContext.xml" />
+	</plug-in>
+
+
+</struts-config>
+

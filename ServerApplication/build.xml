@@ -1,0 +1,214 @@
+<project name="ServerApplication" default="complete-build-debug-cache">
+	<propertyfile file="builder.properties" />
+	<property name="dir.build" value="build/classes" />
+	<property name="dir.dist" value="dist" />
+	<property name="dir.src" value="ejbModule" />
+	<property name="dir.entity" value="dist/entity" />
+	<property name="dir.remotes" value="dist/remotes" />
+	<property name="dir.deploy" value="E:/Praca magisterska/WebClient/src/main/webapp/WEB-INF/lib" />
+	<property name="dir.jboss" value="D:/jboss/server/default/deploy"/>
+	<property name="dir.jboss.all" value="D:/jboss/server/all/deploy"/>
+	<property name="dir.utils" value="dist/utils">
+	</property>
+	<path id="classpath">
+		<fileset dir="d:/jboss/server/default/lib">
+		</fileset>
+		<fileset dir="d:/jboss/client">
+		</fileset>
+	</path>
+
+
+
+	<!--Czyszczenie programu. -->
+	<target name="clean">
+		<delete dir="${dir.build}">
+		</delete>
+		<delete dir="${dir.dist}">
+		</delete>
+		<mkdir dir="${dir.build}" />
+		<mkdir dir="${dir.dist}" />
+		<mkdir dir="${dir.entity}" />
+		<mkdir dir="${dir.remotes}" />
+	</target>
+
+	<!--Kompilacja -->
+
+	<target name="compile">
+		<javac source="1.6" target="1.6" srcdir="${dir.src}" destdir="${dir.build}" classpathref="classpath">
+		</javac>
+	</target>
+
+	<target name="compile-debug">
+		<javac source="1.6" target="1.6" srcdir="${dir.src}" destdir="${dir.build}" classpathref="classpath" debug="true">
+		</javac>
+	</target>
+
+	<!--Tworzy biblioteke jar z klasami entity -->
+	<target name="createEntity" depends="compile">
+		<copy todir="${dir.entity}/pl/bgora/beans/entity">
+			<fileset dir="${dir.build}/pl/bgora/beans/entity">
+			</fileset>
+		</copy>
+		<jar destfile="${dir.dist}/entity.jar" basedir="${dir.entity}">
+			<manifest>
+				<attribute name="Version" value="${version}" />
+				<attribute name="Provider" value="Bartłomiej Góra" />
+				<attribute name="Info" value="Entities beans" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!--Tworzy biblioteke ze zdalnymi interfejsami sesyjnymi. -->
+	<target name="createRemotes" depends="compile">
+		<copy todir="${dir.remotes}/pl/bgora/beans/session/remote">
+			<fileset dir="${dir.build}/pl/bgora/beans/session/remote">
+			</fileset>
+		</copy>
+		<copy todir="${dir.remotes}/pl/bgora/beans/session/bussiness">
+			<fileset dir="${dir.build}/pl/bgora/beans/session/bussiness">
+			</fileset>
+		</copy>
+		<jar destfile="${dir.dist}/remotes.jar" basedir="${dir.remotes}">
+			<manifest>
+				<attribute name="Version" value="${version}" />
+				<attribute name="Provider" value="Bartłomiej Góra" />
+				<attribute name="Info" value="Remote interfaces for session beans" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!--Tworzy biblioteke z utilami. -->
+	<target name="createUtils" depends="compile">
+		<copy todir="${dir.utils}/pl/bgora/server/utils">
+			<fileset dir="${dir.build}/pl/bgora/server/utils">
+			</fileset>
+		</copy>
+		<jar destfile="${dir.dist}/serverUtils.jar" basedir="${dir.utils}">
+			<manifest>
+				<attribute name="Version" value="${version}" />
+				<attribute name="Provider" value="Bartłomiej Góra" />
+				<attribute name="Info" value="util classes for client" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!--Tworzy jara z aplikacją-->
+	<target name="createApp" depends="compile">
+		<copy todir="${dir.build}/META-INF/">
+			<fileset file="src/main/resources/persistence.xml">
+			</fileset>
+		</copy>
+		<jar destfile="${dir.dist}/ServerApplication.jar" basedir="${dir.build}">
+
+		</jar>
+	</target>
+
+	<!--Deploy Entities.jar do lokalnego katalogu z projektem Webclienta.-->
+	<target name="deployEntities">
+		<copy todir="${dir.deploy}">
+			<fileset file="${dir.dist}/entity.jar">
+			</fileset>
+		</copy>
+	</target>
+
+	<!--Deploy Remotes.jar do lokalnego kalatogu z projektem Webclienta-->
+	<target name="deployRemotes">
+		<copy todir="${dir.deploy}">
+			<fileset file="${dir.dist}/remotes.jar">
+			</fileset>
+		</copy>
+	</target>
+
+	<!--Deploy Remotes.jar do lokalnego kalatogu z projektem Webclienta-->
+	<target name="deployUtils">
+		<copy todir="${dir.deploy}">
+			<fileset file="${dir.dist}/serverUtils.jar">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deployApp">
+		<copy todir="${dir.jboss}">
+			<fileset file="${dir.dist}/ServerApplication.jar">
+			</fileset>
+			<fileset file="server-application-ds.xml">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="complete-build">
+		<antcall target="clean">
+		</antcall>
+		<antcall target="compile">
+		</antcall>
+		<antcall target="createEntity">
+		</antcall>
+		<antcall target="deployEntities">
+		</antcall>
+		<antcall target="createRemotes">
+		</antcall>
+		<antcall target="deployRemotes">
+		</antcall>
+		<antcall target="createUtils">
+		</antcall>
+		<antcall target="deployUtils">
+		</antcall>
+		<antcall target="createApp">
+		</antcall>
+		<antcall target="deployApp">
+		</antcall>
+
+	</target>
+
+	<target name="complete-build-debug">
+		<antcall target="clean">
+		</antcall>
+		<antcall target="compile-debug">
+		</antcall>
+		<antcall target="createEntity">
+		</antcall>
+		<antcall target="deployEntities">
+		</antcall>
+		<antcall target="createRemotes">
+		</antcall>
+		<antcall target="deployRemotes">
+		</antcall>
+		<antcall target="createUtils">
+		</antcall>
+		<antcall target="deployUtils">
+		</antcall>
+		<antcall target="createApp">
+		</antcall>
+		<antcall target="deployApp">
+		</antcall>
+
+	</target>
+
+	<target name="complete-build-debug-cache">
+		<antcall target="clean">
+		</antcall>
+		<antcall target="compile-debug">
+		</antcall>
+		<antcall target="createEntity">
+		</antcall>
+		<antcall target="deployEntities">
+		</antcall>
+		<antcall target="createRemotes">
+		</antcall>
+		<antcall target="deployRemotes">
+		</antcall>
+		<antcall target="createUtils">
+		</antcall>
+		<antcall target="deployUtils">
+		</antcall>
+		<antcall target="createApp">
+		</antcall>
+		<copy todir="${dir.jboss.all}">
+			<fileset file="${dir.dist}/ServerApplication.jar">
+			</fileset>
+			<fileset file="server-application-ds.xml">
+			</fileset>
+		</copy>
+	</target>
+</project>
+
