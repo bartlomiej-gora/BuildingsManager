@@ -32,3 +32,33 @@ Web Client:\
   JSP\
   Apache Struts 3.0.2\
   DisplayTag 1.6\
+\
+
+## 23.01.2020
+Stworzyłem Parent Poma, Dodałem mavena do projektu ServerApplication,\
+usunałem stare pliki eclipse'a
+
+## 27.01.2020
+
+Przed pierwszym commitem trzeba było usunąć pliki katalogi ".svn",\
+ które były w każdym katalogu i pakiecie:\
+ Skrypt w pythonie:
+ 
+ ```python
+import os, sys, shutil
+# Czyszczenie starych plików .svn
+def searchAndRemove(dir_list):
+    print("searchAndRemove")
+    for dirEntry in dir_list:
+        if (dirEntry.name == ".svn"):
+            shutil.rmtree(dirEntry)
+            print("dir:" + dirEntry.path + " removed")
+        elif (dirEntry.is_dir()):
+            searchAndRemove(os.scandir(dirEntry.path))
+
+
+path = input(sys.argv)
+print("path:" + path)
+dir_iterator = os.scandir(path)
+searchAndRemove(dir_iterator)
+```
