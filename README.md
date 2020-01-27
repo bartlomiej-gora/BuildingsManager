@@ -1,10 +1,10 @@
 # BuildingManager
 
-## Opis
-To repo służy do migracji starego systemu obiegu dokumentów, tworzonego na potrzeby pracy magisterskiej, na nową technologię.
-Celem głownym jest samodoskonalenie i nauka nowych technologii.
-
-Temat Pracy:
+## Opis  
+To repo służy do migracji starego systemu obiegu dokumentów, tworzonego na potrzeby pracy magisterskiej, na nową technologię.  
+Celem głownym jest samodoskonalenie i nauka nowych technologii.  
+  
+Temat Pracy:  
 System obiegu dokumentów w rozproszonej architekturze
 trójwarstwowej z wykorzystaniem technologii Java 2 Enterprise
 Edition
